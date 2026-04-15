@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNexus - Create Event</title>
+    <style>
+        /* PAGE STYLING */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f7f6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #764ba2;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* FORM ELEMENTS */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box; /* Important for width */
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #667eea;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.3s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>➕ Create Event</h1>
+        <p class="subtitle">Fill in the details to find your dream team.</p>
+
+        <form id="eventForm">
+            <div class="form-group">
+                <label>Event Title</label>
+                <input type="text" id="eventTitle" placeholder="e.g. Odisha AI Hackathon" required>
+            </div>
+
+            <div class="form-group" style="display: flex; gap: 15px;">
+                <div style="flex: 1;">
+                    <label>Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div style="flex: 1;">
+                    <label>Venue</label>
+                    <input type="text" id="eventVenue" placeholder="e.g. Seminar Hall 1" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Skills Needed</label>
+                <input type="text" id="eventSkills" placeholder="e.g. React, Python, UI Design" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="eventDesc" placeholder="Describe the goal of your project..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Publish Event 🚀</button>
+        </form>
+
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+    </div>
+
+    <script>
+        
+        const user = JSON.parse(localStorage.getItem('technexusUser'));
+        if (!user) window.location.href = 'index.html';
+
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            
+            const newEvent = {
+                title: document.getElementById('eventTitle').value,
+                date: document.getElementById('eventDate').value,
+                venue: document.getElementById('eventVenue').value,
+                skills: document.getElementById('eventSkills').value,
+                creator: user.name
+            };
+
+          
+            user.eventsCreated = (user.eventsCreated || 0) + 1;
+            localStorage.setItem('technexusUser', JSON.stringify(user));
+
+            
+            alert("Congratulations! '" + newEvent.title + "' has been posted successfully.");
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>

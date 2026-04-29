@@ -45,4 +45,4 @@ public class RegisterServlet extends HttpServlet {
             response.sendRedirect("FetchEventsServlet?status=error");
         }
     }
-}Explain each and every line as I have to explain it to sir
+}
